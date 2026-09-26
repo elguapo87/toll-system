@@ -22,7 +22,7 @@ model Owner {
   name     String
   email    String        @unique
   password String
-  role     Role
+  role     Role @default(USER)
   stations TollStation[]
 
   createdAt DateTime @default(now())

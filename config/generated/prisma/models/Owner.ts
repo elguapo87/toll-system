@@ -292,7 +292,7 @@ export type OwnerCreateInput = {
   name: string
   email: string
   password: string
-  role: $Enums.Role
+  role?: $Enums.Role
   createdAt?: Date | string
   updatedAt?: Date | string
   stations?: Prisma.TollStationCreateNestedManyWithoutOwnerInput
@@ -303,7 +303,7 @@ export type OwnerUncheckedCreateInput = {
   name: string
   email: string
   password: string
-  role: $Enums.Role
+  role?: $Enums.Role
   createdAt?: Date | string
   updatedAt?: Date | string
   stations?: Prisma.TollStationUncheckedCreateNestedManyWithoutOwnerInput
@@ -335,7 +335,7 @@ export type OwnerCreateManyInput = {
   name: string
   email: string
   password: string
-  role: $Enums.Role
+  role?: $Enums.Role
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -440,7 +440,7 @@ export type OwnerCreateWithoutStationsInput = {
   name: string
   email: string
   password: string
-  role: $Enums.Role
+  role?: $Enums.Role
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -450,7 +450,7 @@ export type OwnerUncheckedCreateWithoutStationsInput = {
   name: string
   email: string
   password: string
-  role: $Enums.Role
+  role?: $Enums.Role
   createdAt?: Date | string
   updatedAt?: Date | string
 }
