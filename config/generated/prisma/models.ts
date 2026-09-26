@@ -8,4 +8,9 @@
  *
  * 🟢 You can import this file directly.
  */
+export type * from './models/Owner'
+export type * from './models/TollStation'
+export type * from './models/TollWorker'
+export type * from './models/Vehicle'
+export type * from './models/TollCollection'
 export type * from './commonInputTypes'

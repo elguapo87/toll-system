@@ -51,7 +51,11 @@ export const AnyNull = runtime.AnyNull
 
 
 export const ModelName = {
-
+  Owner: 'Owner',
+  TollStation: 'TollStation',
+  TollWorker: 'TollWorker',
+  Vehicle: 'Vehicle',
+  TollCollection: 'TollCollection'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -68,4 +72,89 @@ export const TransactionIsolationLevel = runtime.makeStrictEnum({
 } as const)
 
 export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
+
+
+export const OwnerScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  email: 'email',
+  password: 'password',
+  role: 'role',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type OwnerScalarFieldEnum = (typeof OwnerScalarFieldEnum)[keyof typeof OwnerScalarFieldEnum]
+
+
+export const TollStationScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  ownerId: 'ownerId',
+  createdAt: 'createdAt'
+} as const
+
+export type TollStationScalarFieldEnum = (typeof TollStationScalarFieldEnum)[keyof typeof TollStationScalarFieldEnum]
+
+
+export const TollWorkerScalarFieldEnum = {
+  id: 'id',
+  firstName: 'firstName',
+  lastName: 'lastName',
+  stationId: 'stationId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type TollWorkerScalarFieldEnum = (typeof TollWorkerScalarFieldEnum)[keyof typeof TollWorkerScalarFieldEnum]
+
+
+export const VehicleScalarFieldEnum = {
+  id: 'id',
+  licensePlate: 'licensePlate',
+  brand: 'brand',
+  model: 'model',
+  type: 'type',
+  color: 'color',
+  hasTrailer: 'hasTrailer',
+  createdAt: 'createdAt'
+} as const
+
+export type VehicleScalarFieldEnum = (typeof VehicleScalarFieldEnum)[keyof typeof VehicleScalarFieldEnum]
+
+
+export const TollCollectionScalarFieldEnum = {
+  id: 'id',
+  amount: 'amount',
+  workerId: 'workerId',
+  vehicleId: 'vehicleId',
+  stationId: 'stationId',
+  createdAt: 'createdAt'
+} as const
+
+export type TollCollectionScalarFieldEnum = (typeof TollCollectionScalarFieldEnum)[keyof typeof TollCollectionScalarFieldEnum]
+
+
+export const SortOrder = {
+  asc: 'asc',
+  desc: 'desc'
+} as const
+
+export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
+
+
+export const QueryMode = {
+  default: 'default',
+  insensitive: 'insensitive'
+} as const
+
+export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
+
+
+export const NullsOrder = {
+  first: 'first',
+  last: 'last'
+} as const
+
+export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 
