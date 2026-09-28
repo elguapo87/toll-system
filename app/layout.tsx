@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
 import "./globals.css";
+import { Toaster } from "react-hot-toast";
+import AuthContextProvider from "@/context/AuthContext";
 
 const roboto = Roboto({
   subsets: ["latin"]
@@ -17,7 +19,12 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en"
     >
       <body className={`${roboto.className} min-h-full antialiased`}>
-        {children}
+        <AuthContextProvider>
+          <Toaster />
+          <div className="flex flex-col justify-between min-h-screen">
+            {children}
+          </div>
+        </AuthContextProvider>
       </body>
     </html>
   );
