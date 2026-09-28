@@ -17,16 +17,16 @@ const Navbar = () => {
 
     const pathName = usePathname();
 
-    const workerPathName = pathName.startsWith("/protected/worker/");
+    const workerPathName = pathName.startsWith("/owner/worker/");
 
     const navItems = [
-        { name: "Dashboard", url: "/protected" },
-        { name: "Stations", url: "/protected/stations" },
-        { name: "Collect Toll", url: "/protected/collectToll" },
-        { name: "Add Worker", url: "/protected/addWorker" },
-        { name: "Workers", url: "/protected/workers" },
-        { name: "Add Station", url: "/protected/addStation" },
-        { name: "Collections", url: "/protected/collections" },
+        { name: "Dashboard", url: "/owner" },
+        { name: "Stations", url: "/owner/stations" },
+        { name: "Collect Toll", url: "/owner/collectToll" },
+        { name: "Add Worker", url: "/owner/addWorker" },
+        { name: "Workers", url: "/owner/workers" },
+        { name: "Add Station", url: "/owner/addStation" },
+        { name: "Collections", url: "/owner/collections" },
     ];
 
     const handleLogout = async (e: React.SyntheticEvent) => {
@@ -43,7 +43,7 @@ const Navbar = () => {
         >
             <div>
                 <Image
-                    onClick={() => router.push("/protected")}
+                    onClick={() => router.push("/owner")}
                     src="/logo.png"
                     alt="Logo"
                     width={80}

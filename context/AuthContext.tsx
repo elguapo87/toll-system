@@ -67,7 +67,7 @@ const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
             if (data.success) {
                 setOwner(data.owner);
                 toast.success(data.message);
-                router.replace("/protected")
+                router.replace("/owner")
             } else {
                 toast.error(data.message);
             }
@@ -87,7 +87,7 @@ const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
             if (data.success) {
                 setOwner(data.owner);
                 toast.success(data.message);
-                router.replace("/protected");
+                router.replace("/owner");
             } else {
                 toast.error(data.message);
             }

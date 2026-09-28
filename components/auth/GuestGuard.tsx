@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { useContext, useEffect } from "react";
 import Loader from "../Loader";
 
-export async function GuestGuard({ children }: { children: React.ReactNode }) {
+export default function GuestGuard({ children }: { children: React.ReactNode }) {
     const authContext = useContext(AuthContext);
     if (!authContext) throw new Error("GuestGuard must be within AuthContextProvider");
     const { owner, loading } = authContext;
@@ -14,7 +14,7 @@ export async function GuestGuard({ children }: { children: React.ReactNode }) {
 
     useEffect(() => {
         if (!loading && owner) {
-            router.push("/protected");
+            router.push("/owner");
         }
     }, [owner, loading, router]);
 

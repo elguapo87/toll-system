@@ -3,7 +3,6 @@ import Navbar from "@/components/owner/Navbar";
 
 export default function ProtectedLayout({ children }: { children: React.ReactNode }) {
     return (
-
         <AuthGuard>
             <Navbar />
             {children}
