@@ -3,6 +3,7 @@ import { Roboto } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "react-hot-toast";
 import AuthContextProvider from "@/context/AuthContext";
+import Footer from "@/components/Footer";
 
 const roboto = Roboto({
   subsets: ["latin"]
@@ -23,6 +24,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           <Toaster />
           <div className="flex flex-col justify-between min-h-screen">
             {children}
+            <Footer />
           </div>
         </AuthContextProvider>
       </body>

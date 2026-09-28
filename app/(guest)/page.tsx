@@ -98,7 +98,7 @@ const Dashboard = () => {
   if (loading) return <Loader />
 
   return (
-    <div className="mx-auto text-center w-[90%] md:w-[80%] mt-5 md:-translate-y-1/18 max-md:mb-10">
+    <div className="mx-auto text-center w-[90%] md:w-[80%] mt-5 md:-translate-y-1/2 max-md:mb-10">
       <h1 className="text-2xl md:text-3xl">Toll System Overview</h1>
 
       <div className="flex flex-wrap items-center justify-center gap-2 md:gap-10 mt-10 mb-20">

@@ -29,9 +29,9 @@ const Navbar = () => {
                     <Link
                         href="/adminLogin"
                         className="flex items-center gap-2.5 bg-linear-to-r from-zinc-950 to-zinc-500 text-zinc-50
-                     hover:text-zinc-200 text-sm font-medium pl-5 pr-2 py-2 rounded-full cursor-pointer border-0"
+                        hover:text-zinc-200 text-sm font-medium pl-5 pr-2 py-2 rounded-full cursor-pointer border-0"
                     >
-                        Login as Admin
+                        Admin Login
                         <span className="size-7 rounded-full bg-white flex items-center justify-center">
                             <Image 
                                 src="/admin.svg"
@@ -47,7 +47,7 @@ const Navbar = () => {
                     <Link
                         href="/login"
                         className="flex items-center gap-2.5 bg-linear-to-r from-zinc-950 to-zinc-500 text-zinc-50
-                     hover:text-zinc-200 text-sm font-medium pl-5 pr-2 py-2 rounded-full cursor-pointer border-0"
+                        hover:text-zinc-200 text-sm font-medium pl-5 pr-2 py-2 rounded-full cursor-pointer border-0"
                     >
                         Login/register
                         <span className="size-7 rounded-full bg-white flex items-center justify-center">
@@ -68,7 +68,6 @@ const Navbar = () => {
                     </Link>
                 )}
             </div>
-
         </nav>
     )
 }
