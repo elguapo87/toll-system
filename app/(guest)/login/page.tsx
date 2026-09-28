@@ -26,16 +26,16 @@ const Auth = () => {
 
   return (
     
-      <div className="flex items-center justify-center mt-20 md:mt-30">
+      <div className="flex items-center justify-center mt-10 md:mt-30 max-md:pb-30">
         <form
           onSubmit={handleSubmit}
-          className="bg-white text-gray-500 max-w-[340px] w-full mx-4 md:p-6 p-4 py-8 text-left
+          className="bg-white text-gray-500 max-w-85 w-full mx-4 md:p-6 p-4 py-8 text-left
             text-sm rounded-lg shadow-[0px_0px_10px_0px] shadow-black/10"
         >
           <h2 className="text-2xl font-bold mb-9 text-center text-gray-800">
-            {state === "Login" ? "Login" : "Sign Up"}
+            {state === "Login" ? "Login" : "Register"}
           </h2>
-          {state === "Sign Up" && (
+          {state === "Register" && (
             <div className="flex items-center my-2 border bg-indigo-500/5 border-gray-500/10 rounded gap-1 pl-2">
               <svg width="18" height="18" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
@@ -116,27 +116,28 @@ const Auth = () => {
 
           <button
             type="submit"
-            className="w-full mb-3 bg-indigo-500 hover:bg-indigo-600 transition-all active:scale-95
-            py-2.5 rounded text-white font-medium"
+            className={`w-full mb-3 bg-indigo-500 hover:bg-indigo-600 transition-all active:scale-95
+              py-2.5 rounded text-white font-medium ${authLoading ? "opacity-50 cursor-not-allowed" : ""}`}
+            disabled={authLoading}
           >
             {authLoading
               ? "Loading..."
               : state === "Login"
                 ? "Login"
-                : "Create Account"}
+                : "Register"}
           </button>
 
           <div className="text-center mt-4">
             {state === "Login" ? (
               <p>Don&apos;t have an account? {""}
-                <span onClick={() => setState("Sign Up")} className="text-blue-500 underline cursor-pointer">
-                  Sign up
+                <span onClick={() => setState("Register")} className="text-blue-500 underline cursor-pointer">
+                  Register
                 </span>
               </p>
             ) : (
               <p>Already have an account? {""}
                 <span onClick={() => setState("Login")} className="text-blue-500 underline cursor-pointer">
-                  Log In
+                  Login
                 </span>
               </p>
             )}

@@ -1,9 +1,9 @@
-const OwnerDashboard = () => {
+const Dashboard = () => {
   return (
     <div>
-      OwnerDashboard
+      Dashboard
     </div>
   )
 }
 
-export default OwnerDashboard
+export default Dashboard

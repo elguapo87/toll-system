@@ -22,7 +22,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body className={`${roboto.className} min-h-full antialiased`}>
         <AuthContextProvider>
           <Toaster />
-          <div className="flex flex-col justify-between min-h-screen">
+          <div className="relative min-h-screen">
             {children}
             <Footer />
           </div>

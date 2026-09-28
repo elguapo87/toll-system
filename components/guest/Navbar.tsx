@@ -28,16 +28,18 @@ const Navbar = () => {
                 {!adminPathName && !authPathName && (
                     <Link
                         href="/adminLogin"
-                        className="flex items-center gap-2.5 bg-linear-to-r from-zinc-950 to-zinc-500 text-zinc-50
-                        hover:text-zinc-200 text-sm font-medium pl-5 pr-2 py-2 rounded-full cursor-pointer border-0"
+                        className="flex items-center gap-2.5 bg-linear-to-r from-zinc-950 to-zinc-500
+                            text-zinc-50 hover:text-zinc-200 text-sm font-medium pl-5 pr-2 py-2
+                            rounded-full cursor-pointer border-0 max-md:text-xs"
                     >
                         Admin Login
-                        <span className="size-7 rounded-full bg-white flex items-center justify-center">
+                        <span className="size-5 md:size-7.5 rounded-full bg-white flex items-center justify-center">
                             <Image 
                                 src="/admin.svg"
                                 alt="Admin"
-                                width={26}
-                                height={26}
+                                width={24}
+                                height={24}
+                                className="size-4 md:size-6"
                             />
                         </span>
                     </Link>
@@ -46,11 +48,12 @@ const Navbar = () => {
                 {!authPathName && !adminPathName && (
                     <Link
                         href="/login"
-                        className="flex items-center gap-2.5 bg-linear-to-r from-zinc-950 to-zinc-500 text-zinc-50
-                        hover:text-zinc-200 text-sm font-medium pl-5 pr-2 py-2 rounded-full cursor-pointer border-0"
+                        className="flex items-center gap-2.5 bg-linear-to-r from-zinc-950 to-zinc-500
+                            text-zinc-50 hover:text-zinc-200 text-sm font-medium pl-5 pr-2 py-2
+                            rounded-full cursor-pointer border-0 max-md:text-xs"
                     >
                         Login/register
-                        <span className="size-7 rounded-full bg-white flex items-center justify-center">
+                        <span className="size-5 md:size-7 rounded-full bg-white flex items-center justify-center">
                             <svg
                                 width="12" height="10"
                                 viewBox="0 0 12 10"
