@@ -28,11 +28,13 @@ export type AggregateTollWorker = {
 
 export type TollWorkerAvgAggregateOutputType = {
   id: number | null
+  collectedAmount: number | null
   stationId: number | null
 }
 
 export type TollWorkerSumAggregateOutputType = {
   id: number | null
+  collectedAmount: number | null
   stationId: number | null
 }
 
@@ -40,6 +42,7 @@ export type TollWorkerMinAggregateOutputType = {
   id: number | null
   firstName: string | null
   lastName: string | null
+  collectedAmount: number | null
   stationId: number | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -49,6 +52,7 @@ export type TollWorkerMaxAggregateOutputType = {
   id: number | null
   firstName: string | null
   lastName: string | null
+  collectedAmount: number | null
   stationId: number | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -58,6 +62,7 @@ export type TollWorkerCountAggregateOutputType = {
   id: number
   firstName: number
   lastName: number
+  collectedAmount: number
   stationId: number
   createdAt: number
   updatedAt: number
@@ -67,11 +72,13 @@ export type TollWorkerCountAggregateOutputType = {
 
 export type TollWorkerAvgAggregateInputType = {
   id?: true
+  collectedAmount?: true
   stationId?: true
 }
 
 export type TollWorkerSumAggregateInputType = {
   id?: true
+  collectedAmount?: true
   stationId?: true
 }
 
@@ -79,6 +86,7 @@ export type TollWorkerMinAggregateInputType = {
   id?: true
   firstName?: true
   lastName?: true
+  collectedAmount?: true
   stationId?: true
   createdAt?: true
   updatedAt?: true
@@ -88,6 +96,7 @@ export type TollWorkerMaxAggregateInputType = {
   id?: true
   firstName?: true
   lastName?: true
+  collectedAmount?: true
   stationId?: true
   createdAt?: true
   updatedAt?: true
@@ -97,6 +106,7 @@ export type TollWorkerCountAggregateInputType = {
   id?: true
   firstName?: true
   lastName?: true
+  collectedAmount?: true
   stationId?: true
   createdAt?: true
   updatedAt?: true
@@ -193,6 +203,7 @@ export type TollWorkerGroupByOutputType = {
   id: number
   firstName: string
   lastName: string
+  collectedAmount: number
   stationId: number
   createdAt: Date
   updatedAt: Date
@@ -225,6 +236,7 @@ export type TollWorkerWhereInput = {
   id?: Prisma.IntFilter<"TollWorker"> | number
   firstName?: Prisma.StringFilter<"TollWorker"> | string
   lastName?: Prisma.StringFilter<"TollWorker"> | string
+  collectedAmount?: Prisma.IntFilter<"TollWorker"> | number
   stationId?: Prisma.IntFilter<"TollWorker"> | number
   createdAt?: Prisma.DateTimeFilter<"TollWorker"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"TollWorker"> | Date | string
@@ -236,6 +248,7 @@ export type TollWorkerOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   firstName?: Prisma.SortOrder
   lastName?: Prisma.SortOrder
+  collectedAmount?: Prisma.SortOrder
   stationId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -250,6 +263,7 @@ export type TollWorkerWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.TollWorkerWhereInput | Prisma.TollWorkerWhereInput[]
   firstName?: Prisma.StringFilter<"TollWorker"> | string
   lastName?: Prisma.StringFilter<"TollWorker"> | string
+  collectedAmount?: Prisma.IntFilter<"TollWorker"> | number
   stationId?: Prisma.IntFilter<"TollWorker"> | number
   createdAt?: Prisma.DateTimeFilter<"TollWorker"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"TollWorker"> | Date | string
@@ -261,6 +275,7 @@ export type TollWorkerOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   firstName?: Prisma.SortOrder
   lastName?: Prisma.SortOrder
+  collectedAmount?: Prisma.SortOrder
   stationId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -278,6 +293,7 @@ export type TollWorkerScalarWhereWithAggregatesInput = {
   id?: Prisma.IntWithAggregatesFilter<"TollWorker"> | number
   firstName?: Prisma.StringWithAggregatesFilter<"TollWorker"> | string
   lastName?: Prisma.StringWithAggregatesFilter<"TollWorker"> | string
+  collectedAmount?: Prisma.IntWithAggregatesFilter<"TollWorker"> | number
   stationId?: Prisma.IntWithAggregatesFilter<"TollWorker"> | number
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"TollWorker"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"TollWorker"> | Date | string
@@ -286,6 +302,7 @@ export type TollWorkerScalarWhereWithAggregatesInput = {
 export type TollWorkerCreateInput = {
   firstName: string
   lastName: string
+  collectedAmount?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   station: Prisma.TollStationCreateNestedOneWithoutWorkersInput
@@ -296,6 +313,7 @@ export type TollWorkerUncheckedCreateInput = {
   id?: number
   firstName: string
   lastName: string
+  collectedAmount?: number
   stationId: number
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -305,6 +323,7 @@ export type TollWorkerUncheckedCreateInput = {
 export type TollWorkerUpdateInput = {
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  collectedAmount?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   station?: Prisma.TollStationUpdateOneRequiredWithoutWorkersNestedInput
@@ -315,6 +334,7 @@ export type TollWorkerUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  collectedAmount?: Prisma.IntFieldUpdateOperationsInput | number
   stationId?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -325,6 +345,7 @@ export type TollWorkerCreateManyInput = {
   id?: number
   firstName: string
   lastName: string
+  collectedAmount?: number
   stationId: number
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -333,6 +354,7 @@ export type TollWorkerCreateManyInput = {
 export type TollWorkerUpdateManyMutationInput = {
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  collectedAmount?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -341,6 +363,7 @@ export type TollWorkerUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  collectedAmount?: Prisma.IntFieldUpdateOperationsInput | number
   stationId?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -360,6 +383,7 @@ export type TollWorkerCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   firstName?: Prisma.SortOrder
   lastName?: Prisma.SortOrder
+  collectedAmount?: Prisma.SortOrder
   stationId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -367,6 +391,7 @@ export type TollWorkerCountOrderByAggregateInput = {
 
 export type TollWorkerAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  collectedAmount?: Prisma.SortOrder
   stationId?: Prisma.SortOrder
 }
 
@@ -374,6 +399,7 @@ export type TollWorkerMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   firstName?: Prisma.SortOrder
   lastName?: Prisma.SortOrder
+  collectedAmount?: Prisma.SortOrder
   stationId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -383,6 +409,7 @@ export type TollWorkerMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   firstName?: Prisma.SortOrder
   lastName?: Prisma.SortOrder
+  collectedAmount?: Prisma.SortOrder
   stationId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -390,6 +417,7 @@ export type TollWorkerMinOrderByAggregateInput = {
 
 export type TollWorkerSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  collectedAmount?: Prisma.SortOrder
   stationId?: Prisma.SortOrder
 }
 
@@ -457,6 +485,7 @@ export type TollWorkerUpdateOneRequiredWithoutCollectionsNestedInput = {
 export type TollWorkerCreateWithoutStationInput = {
   firstName: string
   lastName: string
+  collectedAmount?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   collections?: Prisma.TollCollectionCreateNestedManyWithoutWorkerInput
@@ -466,6 +495,7 @@ export type TollWorkerUncheckedCreateWithoutStationInput = {
   id?: number
   firstName: string
   lastName: string
+  collectedAmount?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   collections?: Prisma.TollCollectionUncheckedCreateNestedManyWithoutWorkerInput
@@ -504,6 +534,7 @@ export type TollWorkerScalarWhereInput = {
   id?: Prisma.IntFilter<"TollWorker"> | number
   firstName?: Prisma.StringFilter<"TollWorker"> | string
   lastName?: Prisma.StringFilter<"TollWorker"> | string
+  collectedAmount?: Prisma.IntFilter<"TollWorker"> | number
   stationId?: Prisma.IntFilter<"TollWorker"> | number
   createdAt?: Prisma.DateTimeFilter<"TollWorker"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"TollWorker"> | Date | string
@@ -512,6 +543,7 @@ export type TollWorkerScalarWhereInput = {
 export type TollWorkerCreateWithoutCollectionsInput = {
   firstName: string
   lastName: string
+  collectedAmount?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   station: Prisma.TollStationCreateNestedOneWithoutWorkersInput
@@ -521,6 +553,7 @@ export type TollWorkerUncheckedCreateWithoutCollectionsInput = {
   id?: number
   firstName: string
   lastName: string
+  collectedAmount?: number
   stationId: number
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -545,6 +578,7 @@ export type TollWorkerUpdateToOneWithWhereWithoutCollectionsInput = {
 export type TollWorkerUpdateWithoutCollectionsInput = {
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  collectedAmount?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   station?: Prisma.TollStationUpdateOneRequiredWithoutWorkersNestedInput
@@ -554,6 +588,7 @@ export type TollWorkerUncheckedUpdateWithoutCollectionsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  collectedAmount?: Prisma.IntFieldUpdateOperationsInput | number
   stationId?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -563,6 +598,7 @@ export type TollWorkerCreateManyStationInput = {
   id?: number
   firstName: string
   lastName: string
+  collectedAmount?: number
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -570,6 +606,7 @@ export type TollWorkerCreateManyStationInput = {
 export type TollWorkerUpdateWithoutStationInput = {
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  collectedAmount?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   collections?: Prisma.TollCollectionUpdateManyWithoutWorkerNestedInput
@@ -579,6 +616,7 @@ export type TollWorkerUncheckedUpdateWithoutStationInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  collectedAmount?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   collections?: Prisma.TollCollectionUncheckedUpdateManyWithoutWorkerNestedInput
@@ -588,6 +626,7 @@ export type TollWorkerUncheckedUpdateManyWithoutStationInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  collectedAmount?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -627,6 +666,7 @@ export type TollWorkerSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   id?: boolean
   firstName?: boolean
   lastName?: boolean
+  collectedAmount?: boolean
   stationId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -639,6 +679,7 @@ export type TollWorkerSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ex
   id?: boolean
   firstName?: boolean
   lastName?: boolean
+  collectedAmount?: boolean
   stationId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -649,6 +690,7 @@ export type TollWorkerSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ex
   id?: boolean
   firstName?: boolean
   lastName?: boolean
+  collectedAmount?: boolean
   stationId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -659,12 +701,13 @@ export type TollWorkerSelectScalar = {
   id?: boolean
   firstName?: boolean
   lastName?: boolean
+  collectedAmount?: boolean
   stationId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type TollWorkerOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "firstName" | "lastName" | "stationId" | "createdAt" | "updatedAt", ExtArgs["result"]["tollWorker"]>
+export type TollWorkerOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "firstName" | "lastName" | "collectedAmount" | "stationId" | "createdAt" | "updatedAt", ExtArgs["result"]["tollWorker"]>
 export type TollWorkerInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   station?: boolean | Prisma.TollStationDefaultArgs<ExtArgs>
   collections?: boolean | Prisma.TollWorker$collectionsArgs<ExtArgs>
@@ -687,6 +730,7 @@ export type $TollWorkerPayload<ExtArgs extends runtime.Types.Extensions.Internal
     id: number
     firstName: string
     lastName: string
+    collectedAmount: number
     stationId: number
     createdAt: Date
     updatedAt: Date
@@ -1118,6 +1162,7 @@ export interface TollWorkerFieldRefs {
   readonly id: Prisma.FieldRef<"TollWorker", 'Int'>
   readonly firstName: Prisma.FieldRef<"TollWorker", 'String'>
   readonly lastName: Prisma.FieldRef<"TollWorker", 'String'>
+  readonly collectedAmount: Prisma.FieldRef<"TollWorker", 'Int'>
   readonly stationId: Prisma.FieldRef<"TollWorker", 'Int'>
   readonly createdAt: Prisma.FieldRef<"TollWorker", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"TollWorker", 'DateTime'>
