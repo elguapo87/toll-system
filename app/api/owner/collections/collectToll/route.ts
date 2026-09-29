@@ -57,22 +57,6 @@ export async function POST(req: NextRequest) {
             }, { status: 404 });
         }
 
-        let amount = 0;
-
-        switch (type) {
-            case VehicleType.BIKE:
-                return amount = 240;
-
-            case VehicleType.BUS:
-                return amount = 300;
-
-            case VehicleType.TRUCK:
-                return hasTrailer ? 450 : 350;
-
-            case VehicleType.BIKE:
-                return amount = 200;
-        }
-
         const result = await prisma.$transaction(async (tx) => {
             const existingVehicle = await tx.vehicle.findUnique({
                 where: {
@@ -83,6 +67,19 @@ export async function POST(req: NextRequest) {
             let vehicleRecord;
 
             if (existingVehicle) {
+                const requestedHasTrailer = type === VehicleType.TRUCK ? hasTrailer ?? false : null;
+
+                const vehicleMismatch =
+                    existingVehicle.brand !== brand ||
+                    existingVehicle.model !== model ||
+                    existingVehicle.color !== color ||
+                    existingVehicle.type !== type ||
+                    existingVehicle.hasTrailer !== requestedHasTrailer
+
+                if (vehicleMismatch) {
+                    throw new Error("VEHICLE_DETAILS_MISMATCH");
+                }
+
                 vehicleRecord = existingVehicle;
             } else {
                 vehicleRecord = await tx.vehicle.create({
@@ -92,15 +89,35 @@ export async function POST(req: NextRequest) {
                         model,
                         color,
                         type,
-                        hasTrailer: VehicleType.TRUCK ? hasTrailer : null
+                        hasTrailer: type === VehicleType.TRUCK ? hasTrailer ?? false : null
                     }
                 })
             }
 
+            let amount = 0;
+
+            switch (type) {
+                case VehicleType.CAR:
+                    amount = 240;
+                    break;
+
+                case VehicleType.BUS:
+                    amount = 300;
+                    break;
+
+                case VehicleType.TRUCK:
+                    amount = hasTrailer ? 450 : 350;
+                    break;
+
+                case VehicleType.BIKE:
+                    amount = 200;
+                    break;
+            }
+
             const collection = await tx.tollCollection.create({
                 data: {
-                    workerId: worker.id,
                     amount,
+                    workerId: worker.id,
                     vehicleId: vehicleRecord.id,
                     stationId: worker.stationId
                 }
@@ -119,7 +136,8 @@ export async function POST(req: NextRequest) {
 
             return {
                 vehicleRecord,
-                collection
+                collection,
+                amount
             }
         });
 
@@ -128,14 +146,21 @@ export async function POST(req: NextRequest) {
             message: "Toll collected successfully.",
             collection: result.collection,
             vehicle: result.vehicleRecord,
-            amount
+            amount: result.amount
         }, { status: 201 });
 
     } catch (error) {
         console.error(error);
 
+        if (error instanceof Error && error.message === "VEHICLE_DETAILS_MISMATCH") {
+            return NextResponse.json({
+                success: false,
+                message: "Vehicle details do not match the existing license plate."
+            }, { status: 409 });
+        }
+
         if (
-            error instanceof (Error) && (
+            error instanceof Error && (
                 error.message === "Unauthorized" ||
                 error.message === "Invalid token" ||
                 error.message === "Owner not found"
