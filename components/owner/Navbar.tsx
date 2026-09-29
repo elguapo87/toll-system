@@ -9,7 +9,7 @@ import { useContext, useState } from "react";
 const Navbar = () => {
     const authContext = useContext(AuthContext);
     if (!authContext) throw new Error("Navbar must be within AuthContextProvider");
-    const { owner, logout } = authContext;
+    const { owner, logout, authLoading } = authContext;
 
     const [menuOpen, setMenuOpen] = useState(false);
 
@@ -77,7 +77,9 @@ const Navbar = () => {
                 <p>{owner.name}</p>
                 <button
                     onClick={handleLogout}
-                    className="size-7 rounded-full bg-white flex items-center justify-center cursor-pointer"
+                    className={`size-7 rounded-full bg-white flex items-center justify-center cursor-pointer
+                        ${authLoading ? "opacity-50 cursor-not-allowed" : ""}`}
+                    disabled={authLoading}
                 >
                     <Image
                         src="/logout.svg"
