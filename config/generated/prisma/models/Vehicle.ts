@@ -257,10 +257,10 @@ export type VehicleOrderByWithRelationInput = {
 
 export type VehicleWhereUniqueInput = Prisma.AtLeast<{
   id?: number
+  licensePlate?: string
   AND?: Prisma.VehicleWhereInput | Prisma.VehicleWhereInput[]
   OR?: Prisma.VehicleWhereInput[]
   NOT?: Prisma.VehicleWhereInput | Prisma.VehicleWhereInput[]
-  licensePlate?: Prisma.StringFilter<"Vehicle"> | string
   brand?: Prisma.StringFilter<"Vehicle"> | string
   model?: Prisma.StringFilter<"Vehicle"> | string
   type?: Prisma.EnumVehicleTypeFilter<"Vehicle"> | $Enums.VehicleType
@@ -268,7 +268,7 @@ export type VehicleWhereUniqueInput = Prisma.AtLeast<{
   hasTrailer?: Prisma.BoolNullableFilter<"Vehicle"> | boolean | null
   createdAt?: Prisma.DateTimeFilter<"Vehicle"> | Date | string
   collections?: Prisma.TollCollectionListRelationFilter
-}, "id">
+}, "id" | "licensePlate">
 
 export type VehicleOrderByWithAggregationInput = {
   id?: Prisma.SortOrder

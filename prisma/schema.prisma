@@ -22,7 +22,7 @@ model Owner {
   name     String
   email    String        @unique
   password String
-  role     Role @default(USER)
+  role     Role          @default(USER)
   stations TollStation[]
 
   createdAt DateTime @default(now())
@@ -45,15 +45,17 @@ model TollStation {
 }
 
 model TollWorker {
-  id        Int    @id @default(autoincrement())
-  firstName String
-  lastName  String
-  collectedAmount Int @default(0)
+  id              Int    @id @default(autoincrement())
+  firstName       String
+  lastName        String
+  collectedAmount Int    @default(0)
 
   stationId Int
   station   TollStation @relation(fields: [stationId], references: [id])
 
   collections TollCollection[]
+
+  active Boolean @default(true)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -67,13 +69,13 @@ enum VehicleType {
 }
 
 model Vehicle {
-  id Int @id @default(autoincrement())
-  licensePlate String
-  brand      String
-  model      String
-  type       VehicleType
-  color      String
-  hasTrailer Boolean?
+  id           Int         @id @default(autoincrement())
+  licensePlate String      @unique
+  brand        String
+  model        String
+  type         VehicleType
+  color        String
+  hasTrailer   Boolean?
 
   collections TollCollection[]
 
@@ -81,17 +83,17 @@ model Vehicle {
 }
 
 model TollCollection {
-  id Int @id @default(autoincrement())
+  id     Int @id @default(autoincrement())
   amount Int
 
   workerId Int
-  worker TollWorker @relation(fields: [workerId], references: [id])
+  worker   TollWorker @relation(fields: [workerId], references: [id])
 
   vehicleId Int
-  vehicle Vehicle @relation(fields: [vehicleId], references: [id])
+  vehicle   Vehicle @relation(fields: [vehicleId], references: [id])
 
   stationId Int
-  station TollStation @relation(fields: [stationId], references: [id])
-  
+  station   TollStation @relation(fields: [stationId], references: [id])
+
   createdAt DateTime @default(now())
 }

@@ -103,6 +103,7 @@ export const TollWorkerScalarFieldEnum = {
   lastName: 'lastName',
   collectedAmount: 'collectedAmount',
   stationId: 'stationId',
+  active: 'active',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const

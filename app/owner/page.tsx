@@ -53,7 +53,7 @@ const Dashboard = () => {
 
   return (
     <div className="mx-auto w-[90%] md:w-[80%] mt-10 md:mt-15 max-md:pb-30 pb-40">
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 max-md:gap-x-0 gap-10 mb-10">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 max-md:gap-x-0 gap-10 mb-10 md:mb-30">
         <div className="flex flex-col items-center justify-center max-w-80">
           <div className="p-6 aspect-square bg-violet-100 rounded-full">
             <Image
@@ -112,7 +112,7 @@ const Dashboard = () => {
         </div>
       </div>
 
-      <table className="w-full mt-20 border-collapse text-center">
+      <table className="w-full border-collapse text-center">
         <thead>
           <tr className="border-b max-md:text-xs">
             <th>Date</th>
