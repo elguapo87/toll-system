@@ -50,7 +50,7 @@ export async function GET() {
             totalCollected: station.collections.reduce((total, collection) => total + collection.amount, 0)
         }));
 
-        return NextResponse.json({ success: true, stations }, { status: 200 });
+        return NextResponse.json({ success: true, formattedStations }, { status: 200 });
 
     } catch (error) {
         console.error(error);
