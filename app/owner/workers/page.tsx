@@ -32,7 +32,9 @@ const Workers = () => {
             }
         } catch (error) {
             if (axios.isAxiosError(error)) {
-                toast.error(error.response?.data?.message);
+                if (error.response?.status !== 401) {
+                    toast.error(error.response?.data?.message);
+                }
             }
         }
     };
