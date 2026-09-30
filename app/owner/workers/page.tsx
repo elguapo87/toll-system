@@ -11,6 +11,7 @@ type Worker = {
     firstName: string;
     lastName: string;
     collectedAmount: number;
+    active: boolean;
     station: {
         id: number;
         name: string;
@@ -19,6 +20,9 @@ type Worker = {
 
 const Workers = () => {
     const [workers, setWorkers] = useState<Worker[]>([]);
+    const [selectedWorkerId, setSelectedWorkerId] = useState<number | null>(null);
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
 
     const fetchWorkers = async () => {
         try {
@@ -39,17 +43,14 @@ const Workers = () => {
 
     const workersByStation = workers.reduce(
         (groups, worker) => {
-            const stationId = worker.station.id;
-
-            if (!groups[stationId]) {
-                groups[stationId] = {
+            if (!groups[worker.station.id]) {
+                groups[worker.station.id] = {
                     id: worker.station.id,
                     name: worker.station.name,
                     workers: []
-                };
+                }
             }
-
-            groups[stationId].workers.push(worker);
+            groups[worker.station.id].workers.push(worker)
 
             return groups;
         },
@@ -63,8 +64,40 @@ const Workers = () => {
         >
     );
 
+    const changeStatus = async (e: React.SyntheticEvent, workerId: number) => {
+        e.preventDefault();
+
+        try {
+            const { data } = await api.post("/owner/workers/changeStatus", {
+                workerId,
+                email,
+                password
+            });
+
+            if (data.success) {
+                setWorkers((prevWorkers) =>
+                    prevWorkers.map((worker) => (
+                        worker.id === worker.id
+                            ? { ...worker, active: data.active }
+                            : worker
+                    ))
+                );
+
+                toast.success(data.message);
+                setSelectedWorkerId(null);
+            }
+
+        } catch (error) {
+            if (axios.isAxiosError(error)) {
+                if (error.response?.status !== 401) {
+                    toast.error(error.response?.data?.message);
+                }
+            }
+        }
+    };
+
     return (
-        <div className="px-0 md:px-5 lg:px-10 mx-auto mt-10 md:mt-20 pb-30 md:pb-40">
+        <div className="relative px-0 md:px-5 lg:px-10 mx-auto mt-10 md:mt-20 pb-30 md:pb-40">
             {Object.values(workersByStation).map((station) => (
                 <div key={station.id} className="mb-20">
                     <h2 className="text-xl font-semibold mb-5 text-center">{station.name}</h2>
@@ -86,13 +119,25 @@ const Workers = () => {
                                     <td className="py-3">{worker.firstName} {worker.lastName}</td>
                                     <td className="py-3">{worker.collectedAmount}</td>
                                     <td className="py-3">
-                                        <Link
-                                            href={`/protected/worker/${worker.id}`} 
-                                            className="px-2 py-0.5 border border-slate-600 bg-transparent text-sm
+                                        <div className="flex items-center gap-1 justify-center">
+                                            <Link
+                                                href={`/protected/worker/${worker.id}`}
+                                                className="px-2 py-0.5 border border-slate-600 bg-transparent text-sm
                                                 cursor-pointer rounded"
-                                        >
-                                            View
-                                        </Link>
+                                            >
+                                                View
+                                            </Link>
+
+                                            <button
+                                                onClick={() => setSelectedWorkerId(worker.id)}
+                                                className={`px-2 py-0.5 text-sm cursor-pointer
+                                                    max-md:text-xs rounded ${worker.active
+                                                        ? "bg-green-500 text-white border border-green-500"
+                                                        : "bg-gray-200 text-slate-400 border border-gray-200"}`}
+                                            >
+                                                {worker.active ? "Active" : "Inactive"}
+                                            </button>
+                                        </div>
                                     </td>
                                 </tr>
                             ))}
@@ -100,6 +145,57 @@ const Workers = () => {
                     </table>
                 </div>
             ))}
+
+            {selectedWorkerId !== null && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 backdrop-blur-sm">
+                    <form
+                        onSubmit={(e) => changeStatus(e, selectedWorkerId)}
+                        className="flex flex-col  gap-3 bg-stone-100 text-gray-500 
+                                p-5 rounded-lg shadow-[0px_0px_10px_0px] shadow-black/10"
+                    >
+                        <h2 className="text-2xl font-bold mb-5 text-center text-gray-800">
+                            Owner Confirmation
+                        </h2>
+
+                        <input
+                            onChange={(e) => setEmail(e.target.value)}
+                            value={email}
+                            className="w-full outline-none bg-stone-200 py-2.5 rounded pl-3"
+                            type="email"
+                            placeholder="Email"
+                            required
+                        />
+
+                        <input
+                            onChange={(e) => setPassword(e.target.value)}
+                            value={password}
+                            className="w-full outline-none bg-stone-200 py-2.5 rounded pl-3"
+                            type="password"
+                            placeholder="Password"
+                            required
+                        />
+
+                        <div className="flex items-center justify-between gap-5 mt-3">
+                            <button
+                                type="submit"
+                                className={`w-full bg-blue-500 hover:bg-blue-600 transition-all
+                                    active:scale-95 py-2 rounded text-white font-medium cursor-pointer`}
+                            >
+                                Confirm
+                            </button>
+
+                            <button
+                                onClick={() => setSelectedWorkerId(null)}
+                                className={`w-full bg-red-500 hover:bg-red-600 transition-all
+                                    active:scale-95 py-2 rounded text-white font-medium cursor-pointer`}
+                            >
+                                Cancel
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+            )}
         </div>
     )
 }
