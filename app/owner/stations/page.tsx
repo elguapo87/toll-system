@@ -3,6 +3,7 @@
 import api from "@/utils/axios";
 import axios from "axios";
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useState } from "react"
 import toast from "react-hot-toast";
 
@@ -37,7 +38,7 @@ const Stations = () => {
         fetchStations();
     }, []);
 
-    return (
+    return stations.length > 0 ? (
         <div className="mt-10 md:mt-15 pb-30 md:pb-40">
             <div className="flex flex-col md:flex-row items-center justify-center md:gap-10">
                 {stations.map((station) => (
@@ -54,33 +55,45 @@ const Stations = () => {
 
                         <div className="flex items-end gap-5">
                             <Image
-                                    src="/house.svg"
-                                    alt="Station"
-                                    width={40}
-                                    height={40}
-                                    className="size-10"
-                                />
+                                src="/house.svg"
+                                alt="Station"
+                                width={40}
+                                height={40}
+                                className="size-10"
+                            />
                             <h1 className="text-2xl md:text-3xl text-slate-800">{station.name}</h1>
                         </div>
 
                         <div className="flex flex-col items-center justify-center gap-2">
-                            <div className="flex items-end gap-2 text-xl md:text-2xl pb-1 border-b border-slate-500">
-                                <Image
-                                    src="/worker.svg"
-                                    alt="Worker"
-                                    width={40}
-                                    height={40}
-                                    className="size-10 -translate-y-1.25"
-                                />
-                                {station.workersNumber > 1 && (
-                                    <span>
-                                        {station.workersNumber}
-                                    </span>
-                                )}
-                                <h2 className="text-slate-800">
-                                    {station.workersNumber === 1 ? "Worker" : "Workers"}
-                                </h2>
-                            </div>
+                            {station.workersNumber > 0 ? (
+                                <div className="flex items-end gap-2 text-xl md:text-2xl pb-1 border-b border-slate-500">
+                                    <Image
+                                        src="/worker.svg"
+                                        alt="Worker"
+                                        width={40}
+                                        height={40}
+                                        className="size-10 -translate-y-1.25"
+                                    />
+                                    {station.workersNumber > 1 && (
+                                        <span>
+                                            {station.workersNumber}
+                                        </span>
+                                    )}
+                                    <h2 className="text-slate-800">
+                                        {station.workersNumber === 1 ? "Worker" : "Workers"}
+                                    </h2>
+                                </div>
+                            ) : (
+                                <div className="text-center">
+                                    <h1 className="text-lg text-slate-700">This station has no workers.</h1>
+                                    <Link
+                                        className="italic text-sm text-slate-700"
+                                        href="/owner/addWorker"
+                                    >
+                                        Click here to add workers
+                                    </Link>
+                                </div>
+                            )}
                             <ul className=" text-slate-800">
                                 {station.workers.map((item, index) => (
                                     <li
@@ -117,6 +130,8 @@ const Stations = () => {
                 ))}
             </div>
         </div>
+    ) : (
+        <h1 className="text-center mt-10 text-2xl md:text-3xl text-slate-600">No stations added yet</h1>
     )
 }
 

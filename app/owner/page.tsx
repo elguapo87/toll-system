@@ -112,45 +112,47 @@ const Dashboard = () => {
         </div>
       </div>
 
-      <table className="w-full border-collapse text-center">
-        <thead>
-          <tr className="border-b max-md:text-xs">
-            <th>Date</th>
-            <th>Worker</th>
-            <th>Vehicle</th>
-            <th>Station</th>
-            <th>Amount</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          {recentCollections.map((collection) => (
-            <tr key={collection.id} className="border-b">
-              <td className="max-md:text-xs py-3">
-                {new Date(collection.createdAt).toLocaleString()}
-              </td>
-
-              <td className="max-md:text-xs py-3">
-                {collection.worker.firstName}{" "}
-                {collection.worker.lastName}
-              </td>
-
-              <td className="max-md:text-xs py-3">
-                {collection.vehicle.brand}{" "}
-                {collection.vehicle.model}
-              </td>
-
-              <td className="max-md:text-xs py-3">
-                {collection.station.name}
-              </td>
-
-              <td className="max-md:text-xs py-3">
-                ${collection.amount}
-              </td>
+      {recentCollections.length > 0 && (
+        <table className="w-full border-collapse text-center">
+          <thead>
+            <tr className="border-b max-md:text-xs">
+              <th>Date</th>
+              <th>Worker</th>
+              <th>Vehicle</th>
+              <th>Station</th>
+              <th>Amount</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+
+          <tbody>
+            {recentCollections.map((collection) => (
+              <tr key={collection.id} className="border-b">
+                <td className="max-md:text-xs py-3">
+                  {new Date(collection.createdAt).toLocaleString()}
+                </td>
+
+                <td className="max-md:text-xs py-3">
+                  {collection.worker.firstName}{" "}
+                  {collection.worker.lastName}
+                </td>
+
+                <td className="max-md:text-xs py-3">
+                  {collection.vehicle.brand}{" "}
+                  {collection.vehicle.model}
+                </td>
+
+                <td className="max-md:text-xs py-3">
+                  {collection.station.name}
+                </td>
+
+                <td className="max-md:text-xs py-3">
+                  ${collection.amount}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
     </div>
   )
 }
