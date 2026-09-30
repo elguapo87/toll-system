@@ -56,7 +56,7 @@ const CollectToll = () => {
     };
 
     return (
-        <div className="flex justify-center items-center max-md:mt-5 mb-10">
+        <div className="flex justify-center items-center mt-8 md:mt-10 pb-30 md:pb-35">
             <div className="flex flex-col items-center w-full">
                 <h1 className="text-2xl mb-3">
                     Collect Toll
