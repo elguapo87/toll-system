@@ -131,7 +131,15 @@ const Stations = () => {
             </div>
         </div>
     ) : (
-        <h1 className="text-center mt-10 text-2xl md:text-3xl text-slate-600">No stations added yet</h1>
+        <div className="text-center mt-10 md:mt-20">
+            <h1 className="text-xl md:text-3xl text-slate-700 mb-2">
+                No stations added yet
+            </h1>
+
+            <Link href="/owner/addStation" className="italic text-sm text-slate-700">
+                Click here to add station
+            </Link>
+        </div>
     )
 }
 

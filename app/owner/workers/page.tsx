@@ -98,7 +98,7 @@ const Workers = () => {
         }
     };
 
-    return (
+    return workers.length > 0 ? (
         <div className="relative px-0 md:px-5 lg:px-10 mx-auto mt-10 md:mt-20 pb-30 md:pb-40">
             {Object.values(workersByStation).map((station) => (
                 <div key={station.id} className="mb-20">
@@ -123,7 +123,7 @@ const Workers = () => {
                                     <td className="py-3">
                                         <div className="flex items-center gap-1 justify-center">
                                             <Link
-                                                href={`/protected/worker/${worker.id}`}
+                                                href={`/owner/worker/${worker.id}`}
                                                 className="px-2 py-0.5 border border-slate-600 bg-transparent text-sm
                                                 cursor-pointer rounded"
                                             >
@@ -198,6 +198,16 @@ const Workers = () => {
                 </div>
 
             )}
+        </div>
+    ) : (
+        <div className="text-center mt-10 md:mt-20">
+            <h1 className="text-xl md:text-3xl text-slate-700 mb-2">
+                No added workers yet
+            </h1>
+
+            <Link href="/owner/addWorker" className="italic text-sm text-slate-700">
+                Click here to add workers
+            </Link>
         </div>
     )
 }
