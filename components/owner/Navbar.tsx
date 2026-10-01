@@ -1,10 +1,13 @@
 "use client"
 
 import { AuthContext } from "@/context/AuthContext";
+import api from "@/utils/axios";
+import axios from "axios";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 const Navbar = () => {
     const authContext = useContext(AuthContext);
@@ -13,21 +16,54 @@ const Navbar = () => {
 
     const [menuOpen, setMenuOpen] = useState(false);
 
+    const [stationsCount, setStationsCount] = useState<number | null>(null);
+    const [workersCount, setWorkersCount] = useState<number | null>(null);
+
     const router = useRouter();
 
     const pathName = usePathname();
 
     const workerPathName = pathName.startsWith("/owner/worker/");
 
+    useEffect(() => {
+        if (!owner || authLoading) return;
+
+        const fetchData = async () => {
+            try {
+                const { data } = await api("/owner/stations/count");
+
+                if (data.success) {
+                    setStationsCount(data.stationsCount);
+                    setWorkersCount(data.workersCount);
+                }
+            } catch (error) {
+                if (axios.isAxiosError(error)) {
+                    if (error.response?.status !== 401) {
+                        toast.error(error.response?.data?.message);
+                    }
+                }
+            }
+        };
+
+        fetchData();
+    }, [pathName, owner, authLoading]);
+
     const navItems = [
         { name: "Dashboard", url: "/owner" },
-        { name: "Stations", url: "/owner/stations" },
-        { name: "Collect Toll", url: "/owner/collectToll" },
-        { name: "Add Worker", url: "/owner/addWorker" },
-        { name: "Workers", url: "/owner/workers" },
+        { name: "Stations", url: "/owner/stations", requiresStation: true },
+        { name: "Collect Toll", url: "/owner/collectToll", requiresStation: true, requiresWorker: true },
+        { name: "Add Worker", url: "/owner/addWorker", requiresStation: true },
+        { name: "Workers", url: "/owner/workers", requiresStation: true },
         { name: "Add Station", url: "/owner/addStation" },
         { name: "Collections", url: "/owner/collections" },
     ];
+
+    const visibleNavItems = navItems.filter((item) => {
+        const hasStation = !item.requiresStation || (stationsCount !== null && stationsCount > 0);
+        const hasWorker = !item.requiresWorker || (workersCount !== null && workersCount > 0);
+
+        return hasStation && hasWorker
+    });
 
     const handleLogout = async (e: React.SyntheticEvent) => {
         e.preventDefault();
@@ -54,7 +90,7 @@ const Navbar = () => {
 
             {!workerPathName && (
                 <div className="hidden md:flex items-center bg-zinc-50 border border-zinc-200 rounded-full px-1 py-1 gap-2">
-                    {navItems.map((item) => (
+                    {visibleNavItems.map((item) => (
                         <Link
                             key={item.name}
                             href={item.url}
@@ -122,7 +158,7 @@ const Navbar = () => {
                         </button>
                     </div>
 
-                    {navItems.map((item) => (
+                    {visibleNavItems.map((item) => (
                         <Link
                             key={item.name}
                             href={item.url}
