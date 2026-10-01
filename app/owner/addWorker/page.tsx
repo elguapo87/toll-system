@@ -3,16 +3,42 @@
 import api from "@/utils/axios";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
+type Station = {
+    id: number;
+    name: string;
+};
+
 const AddWorker = () => {
-    const [stationId, setStationId] = useState("");
     const [firstName, setFirstName] = useState("")
     const [lastName, setLastName] = useState("");
     const [loading, setLoading] = useState(false);
 
+    const [stations, setStations] = useState<Station[]>([]);
+    const [selectedStation, setSelectedStation] = useState("");
+
     const router = useRouter();
+
+    const fetchStations = async () => {
+        try {
+            const { data } = await api.get("/owner/stations/stationsByOwner");
+            if (data.success) {
+                setStations(data.stations);
+            }
+        } catch (error) {
+            if (axios.isAxiosError(error)) {
+                if (error.response?.status !== 401) {
+                    toast.error(error.response?.data?.message);
+                }
+            }
+        }
+    };
+
+    useEffect(() => {
+        fetchStations();
+    }, []);
 
     const handleSubmit = async (e: React.SyntheticEvent) => {
         e.preventDefault();
@@ -23,12 +49,12 @@ const AddWorker = () => {
             const { data } = await api.post("/owner/workers/add", {
                 firstName,
                 lastName,
-                stationId: Number(stationId)
+                stationId: Number(selectedStation || stations[0]?.id)
             });
 
             if (data.success) {
                 toast.success(data.message);
-                router.push("/protected/workers");
+                router.push("/owner/workers");
             }
         } catch (error) {
             if (axios.isAxiosError(error)) {
@@ -54,17 +80,20 @@ const AddWorker = () => {
                         text-sm rounded-lg border border-gray-300/60"
                 >
                     {/* STATION */}
-                    <label className="font-medium">
-                        Station ID
-                    </label>
-                    <input
-                        value={stationId}
-                        onChange={(e) => setStationId(e.target.value)}
-                        className="w-full border mt-1.5 mb-4 border-gray-500/30 outline-none rounded py-2.5 px-3"
-                        type="number"
-                        placeholder="Enter Station ID"
-                        required
-                    />
+                    <div className="flex flex-col mb-2">
+                        <label className="font-medium mb-1">
+                            Select Station
+                        </label>
+                        <select
+                            value={selectedStation || stations[0]?.id || ""}
+                            onChange={(e) => setSelectedStation(e.target.value)}
+                            className="border border-gray-400 rounded p-2.5 text-sm"
+                        >
+                            {stations.map((station) => (
+                                <option key={station.id} value={station.id}>{station.name}</option>
+                            ))}
+                        </select>
+                    </div>
 
                     {/* FIRST NAME */}
                     <label className="font-medium">
