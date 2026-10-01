@@ -62,7 +62,7 @@ const AddWorker = () => {
                         onChange={(e) => setStationId(e.target.value)}
                         className="w-full border mt-1.5 mb-4 border-gray-500/30 outline-none rounded py-2.5 px-3"
                         type="number"
-                        placeholder="Enter Worker ID"
+                        placeholder="Enter Station ID"
                         required
                     />
 
@@ -75,7 +75,7 @@ const AddWorker = () => {
                         onChange={(e) => setFirstName(e.target.value)}
                         className="w-full border mt-1.5 mb-4 border-gray-500/30 outline-none rounded py-2.5 px-3"
                         type="text"
-                        placeholder="Enter Worker ID"
+                        placeholder="Enter First Name"
                         required
                     />
 
@@ -88,7 +88,7 @@ const AddWorker = () => {
                         onChange={(e) => setLastName(e.target.value)}
                         className="w-full border mt-1.5 mb-4 border-gray-500/30 outline-none rounded py-2.5 px-3"
                         type="text"
-                        placeholder="Enter Worker ID"
+                        placeholder="Enter Last Name"
                         required
                     />
 

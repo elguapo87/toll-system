@@ -45,6 +45,6 @@ export async function GET(req: Request, context: { params: Promise<{ id: number 
             return NextResponse.json({ success: false, message: "Unauthorized action" }, { status: 401 });
         }
 
-        return NextResponse.json({ success: false, message: "Failed to change status" }, { status: 500 });
+        return NextResponse.json({ success: false, message: "Failed to fetch worker data" }, { status: 500 });
     }
 }
