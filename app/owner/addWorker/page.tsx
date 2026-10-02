@@ -2,6 +2,7 @@
 
 import api from "@/utils/axios";
 import axios from "axios";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
@@ -18,6 +19,7 @@ const AddWorker = () => {
 
     const [stations, setStations] = useState<Station[]>([]);
     const [selectedStation, setSelectedStation] = useState("");
+    const [stationsLoading, setStationsLoading] = useState(true);
 
     const router = useRouter();
 
@@ -33,12 +35,34 @@ const AddWorker = () => {
                     toast.error(error.response?.data?.message);
                 }
             }
+        } finally {
+            setStationsLoading(false);
         }
     };
 
     useEffect(() => {
         fetchStations();
     }, []);
+
+    if (stationsLoading) {
+        return <p className="text-center mt-10">Loading stations...</p>;
+    }
+
+    if (stations.length === 0) {
+        return (
+            <div className="flex flex-col items-center mt-10 gap-4">
+                <h1 className="text-2xl">No Stations Available</h1>
+                <p>You need to create a station before adding a worker.</p>
+
+                <Link
+                    href="/owner/addStation"
+                    className="bg-indigo-500 text-white px-5 py-2 rounded hover:bg-indigo-700"
+                >
+                    Add Station
+                </Link>
+            </div>
+        );
+    }
 
     const handleSubmit = async (e: React.SyntheticEvent) => {
         e.preventDefault();

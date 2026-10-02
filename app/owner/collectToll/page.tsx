@@ -2,7 +2,8 @@
 
 import api from "@/utils/axios";
 import axios from "axios";
-import { useState } from "react"
+import Link from "next/link";
+import { useEffect, useState } from "react"
 import toast from "react-hot-toast";
 
 const CollectToll = () => {
@@ -14,7 +15,69 @@ const CollectToll = () => {
     const [color, setColor] = useState("");
     const [licensePlate, setLicensePlate] = useState("");
 
+    const [stationsCount, setStationsCount] = useState(0);
+    const [workersCount, setWorkersCount] = useState(0);
+    const [loadingData, setLoadingData] = useState(true);
+
     const [loading, setLoading] = useState(false);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const { data } = await api.get("/owner/stations/count");
+                if (data.success) {
+                    setStationsCount(data.stationsCount);
+                    setWorkersCount(data.workersCount);
+                }
+            } catch (error) {
+                if (axios.isAxiosError(error)) {
+                    if (error.response?.status !== 401) {
+                        toast.error(error.response?.data?.message);
+                    }
+                }
+            } finally {
+                setLoadingData(false);
+            }
+        };
+
+        fetchData();
+    }, []);
+
+    if (loadingData) {
+        return <p className="text-center mt-10">Loading data...</p>;
+    }
+
+    if (stationsCount === 0) {
+        return (
+            <div className="flex flex-col items-center mt-10 gap-4">
+                <h1 className="text-2xl">No Stations Available</h1>
+                <p>You need to create a station then you need add a worker.</p>
+
+                <Link
+                    href="/owner/addStation"
+                    className="bg-indigo-500 text-white px-5 py-2 rounded hover:bg-indigo-700"
+                >
+                    Add Station
+                </Link>
+            </div>
+        );
+    }
+
+    if (workersCount === 0) {
+        return (
+            <div className="flex flex-col items-center mt-10 gap-4">
+                <h1 className="text-2xl">No Worker Available</h1>
+                <p>You need to add a worker.</p>
+
+                <Link
+                    href="/owner/addWorker"
+                    className="bg-indigo-500 text-white px-5 py-2 rounded hover:bg-indigo-700"
+                >
+                    Add Worker
+                </Link>
+            </div>
+        );
+    }
 
     const handleSubmit = async (e: React.SyntheticEvent) => {
         e.preventDefault();
