@@ -25,7 +25,7 @@ const AdminLogin = () => {
                 className="bg-white text-gray-500 max-w-85 w-full mx-4 md:p-6 p-4 py-8 text-left
                     text-sm rounded-lg shadow-[0px_0px_10px_0px] shadow-black/10"
             >
-                <h2 className="text-2xl font-bold mb-9 text-center text-gray-800">Login</h2>
+                <h2 className="text-2xl font-bold mb-9 text-center text-gray-800">Admin Login</h2>
 
                 <div className="flex items-center my-2 border bg-indigo-500/5 border-gray-500/10 rounded gap-1 pl-2">
                     <svg width="18" height="18" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">

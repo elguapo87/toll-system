@@ -5,7 +5,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useContext } from "react";
 
-const AdminNavbar = () => {
+const Navbar = () => {
     const adminContext = useContext(AdminContext);
     if (!adminContext) throw new Error("AdminGuard page must be within AdminContextProvider");
     const { logout, adminLoading } = adminContext;
@@ -16,12 +16,10 @@ const AdminNavbar = () => {
         await logout();
     }
 
-    // pb-1
-
     return (
         <nav
-            className="fixed top-0 left-0 right-0 z-50 bg-white px-6 md:px-12 lg:px-24 xl:px-40
-                flex items-center justify-between border-b border-slate-800 "
+            className="fixed top-0 left-0 right-0 z-50 bg-stone-50 px-6 md:px-12 lg:px-24 xl:px-40
+                flex items-center justify-between border-b border-slate-800 pb-1"
         >
             <div className="flex flex-col items-center gap-2">
                 <Image
@@ -57,4 +55,4 @@ const AdminNavbar = () => {
     )
 }
 
-export default AdminNavbar;
+export default Navbar;
