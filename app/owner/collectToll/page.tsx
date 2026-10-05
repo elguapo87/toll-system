@@ -49,9 +49,9 @@ const CollectToll = () => {
 
     if (stationsCount === 0) {
         return (
-            <div className="flex flex-col items-center mt-10 gap-4">
+            <div className="flex flex-col items-center mt-10 gap-4 max-md:px-3">
                 <h1 className="text-2xl">No Stations Available</h1>
-                <p>You need to create a station then you need add a worker.</p>
+                <p>You need to create a station then you need create a worker.</p>
 
                 <Link
                     href="/owner/addStation"

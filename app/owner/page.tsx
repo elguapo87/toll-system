@@ -52,7 +52,9 @@ const Dashboard = () => {
   }, []);
 
   return (
-    <div className="mx-auto w-[90%] md:w-[80%] mt-10 md:mt-15 max-md:pb-30 pb-40">
+    <div 
+      className={`mx-auto w-[90%] md:w-[80%] max-md:pb-30 pb-40 mt-10
+        ${(totalRevenue === 0 || todayRevenue === 0) ? "md:mt-25" : "md:mt-15"}`}>
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 max-md:gap-x-0 gap-10 mb-10 md:mb-30">
         <div className="flex flex-col items-center justify-center max-w-80">
           <div className="p-6 aspect-square bg-violet-100 rounded-full">
