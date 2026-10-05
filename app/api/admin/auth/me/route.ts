@@ -5,7 +5,7 @@ export async function GET() {
     try {
         const admin = await adminAuth();
 
-        return NextResponse.json({ success: true, admin }, { status: 200 });
+        return NextResponse.json({ success: true, admin: { role: admin.role, email: admin.email } }, { status: 200 });
 
     } catch (error) {
         if (
