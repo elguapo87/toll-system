@@ -59,6 +59,6 @@ export async function GET() {
             return NextResponse.json({ success: false, message: "Unauthorized" }, { status: 401 });
         }
 
-        return NextResponse.json({ success: false, message: "Failed to fetch stations" }, { status: 500 });
+        return NextResponse.json({ success: false, message: "Failed to fetch workers" }, { status: 500 });
     }
 }
