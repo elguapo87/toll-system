@@ -44,6 +44,7 @@ const Workers = () => {
             <table className="md:max-w-[80%] mx-auto w-full mt-4 md:mt-8 border-collapse text-center">
                 <thead className="max-md:text-xs">
                     <tr className="border-b">
+                        <th className="max-md:hidden">ID</th>
                         <th>Worker</th>
                         <th>Station</th>
                         <th>Owner</th>
@@ -55,6 +56,12 @@ const Workers = () => {
                 <tbody className="max-md:text-xs">
                     {workers.map((item, index) => (
                         <tr key={index} className="border-b">
+                            <td className="md:p-3 max-md:hidden">
+                                <Link href={`/admin/worker/${item.id}`}>
+                                    {item.id}
+                                </Link>
+                            </td>
+
                             <td className="md:p-3">
                                 <Link href={`/admin/worker/${item.id}`}>
                                     {item.worker}
