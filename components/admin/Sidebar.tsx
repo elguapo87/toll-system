@@ -17,10 +17,8 @@ const Sidebar = () => {
     ];
 
     return (
-        <div className="bg-stone-50 min-h-[70vh] border-r max-sm:min-w-[15%]">
-            <ul
-                className="mt-5"
-            >
+        <div className="min-h-fit border-r max-sm:min-w-[15%] border-slate-800 mb-30 md:mb-40">
+            <ul className="mt-5">
                 {navLinks.map((item) => (
                     <Link
                         key={item.name}

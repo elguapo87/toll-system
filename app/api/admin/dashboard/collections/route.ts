@@ -43,7 +43,7 @@ export async function GET() {
                 error.message === "Invalid admin token"
             )
         ) {
-            return NextResponse.json({ success: false, message: "Unauthorized" }, { status: 500 });
+            return NextResponse.json({ success: false, message: "Unauthorized" }, { status: 401 });
         }
 
         return NextResponse.json({ success: false, message: "Failed to fetch collections" }, { status: 500 });
