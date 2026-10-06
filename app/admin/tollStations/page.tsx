@@ -37,9 +37,6 @@ const TollStations = () => {
         fetchStations();
     }, []);
 
-    console.log(tollStations);
-
-
     return (
         <div className="mt-10 md:mt-20 mb-30 md:mb-40">
             <h1 className="text-xl md:text-2xl text-center text-slate-800">Toll Station List</h1>
@@ -60,13 +57,13 @@ const TollStations = () => {
                     {tollStations.map((station) => (
                         <tr key={station.id} className="border-b">
                             <td className="md:p-3 max-md:hidden">
-                                <Link href={`/admin/station/${station.id}`}>
+                                <Link href={`/admin/tollStation/${station.id}`}>
                                     {station.id}
                                 </Link>
                             </td>
 
                             <td className="md:p-3">
-                                <Link href={`/admin/station/${station.id}`}>
+                                <Link href={`/admin/tollStation/${station.id}`}>
                                     {station.name}
                                 </Link>
                             </td>
