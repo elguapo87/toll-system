@@ -19,8 +19,7 @@ type Worker = {
 };
 
 type Vehicle = {
-    id: number;
-    licensePlate: string;
+    id: string;
     type: string;
 };
 
@@ -92,21 +91,26 @@ const Collections = () => {
                     []
                 );
 
-                const uniqueVehicles = data.collections.reduce(
-                    (vehicles: Vehicle[], collection: Collections) => {
-                        const exists = vehicles.some((vehicle) => vehicle.id === collection.vehicle.id);
-                        if (!exists) {
-                            vehicles.push(collection.vehicle);
-                        }
+                const uniqueVehicles = [
+                    ...new Set<string>(
+                        data.collections.map(
+                            (collection: Collections) => collection.vehicle.type
+                        )
+                    )
+                ];
 
-                        return vehicles;
-                    },
-                    []
-                );
+                console.log(uniqueVehicles);
+
 
                 setStations(uniqueStations);
                 setWorkers(uniqueWorkers);
-                setVehicles(uniqueVehicles);
+                setVehicles(
+                    uniqueVehicles.map((type: string) => ({
+                        id: type,
+                        type,
+                    }))
+                );
+
             }
         } catch (error) {
             if (axios.isAxiosError(error)) {
@@ -124,7 +128,7 @@ const Collections = () => {
     useEffect(() => {
         const matchesStation = (station: Station) => selectedStation === "" || station.id === Number(selectedStation);
         const matchesWorker = (worker: Worker) => selectedWorker === "" || worker.id === Number(selectedWorker);
-        const matchesVehicle = (vehicle: Vehicle) => selectedVehicle === "" || vehicle.id === Number(selectedVehicle);
+        const matchesVehicle = (vehicle: Collections["vehicle"]) => selectedVehicle === "" || vehicle.type === selectedVehicle;
 
         const matchesDate = (createdAt: string | Date) => {
             const date = new Date(createdAt);
@@ -133,14 +137,14 @@ const Collections = () => {
             const beforeToDate = toDate === "" || date <= new Date(`${toDate}T23:59:59.999`);
 
             return afterFromDate && beforeToDate;
-         };
+        };
 
         const newFilteredCollections = collections.filter(
             (collection) => matchesStation(collection.station)
                 && matchesWorker(collection.worker)
                 && matchesVehicle(collection.vehicle)
                 && matchesDate(collection.createdAt)
-            );
+        );
 
         setFilteredCollections(newFilteredCollections);
     }, [collections, selectedStation, selectedWorker, selectedVehicle, fromDate, toDate]);
@@ -190,12 +194,13 @@ const Collections = () => {
                     <div className="flex flex-col items-center">
                         <label className="max-md:hidden text-sm">Search by vehicle</label>
                         <select
+                            value={selectedVehicle}
                             onChange={(e) => setSelectedVehicle(e.target.value)}
                             className="border border-gray-400 rounded p-1 md:p-2 text-xs md:text-sm"
                         >
                             <option value="">All Vehicles</option>
                             {vehicles.map((vehicle) => (
-                                <option key={vehicle.id} value={vehicle.id}>{vehicle.type}</option>
+                                <option key={vehicle.id} value={vehicle.type}>{vehicle.type}</option>
                             ))}
                         </select>
 

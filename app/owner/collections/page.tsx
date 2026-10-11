@@ -18,12 +18,8 @@ type Worker = {
 };
 
 type Vehicle = {
-    id: number;
+    id: string;
     type: string;
-    brand: string;
-    model: string;
-    color: string;
-    hasTrailer: boolean
 };
 
 type Collection = {
@@ -94,21 +90,22 @@ const page = () => {
                     []
                 );
 
-                const uniqueVehicles = data.collections.reduce(
-                    (vehicles: Vehicle[], collection: Collection) => {
-                        const exists = vehicles.some((vehicle) => vehicle.id === collection.vehicle.id);
-                        if (!exists) {
-                            vehicles.push(collection.vehicle);
-                        }
-
-                        return vehicles;
-                    },
-                    []
-                );
+                const uniqueVehicles = [
+                    ...new Set<string>(
+                        data.collections.map(
+                            (collection: Collection) => collection.vehicle.type
+                        )
+                    )
+                ];
 
                 setStations(uniqueStations);
                 setWorkers(uniqueWorkers);
-                setVehicles(uniqueVehicles);
+                setVehicles(
+                    uniqueVehicles.map((type: string) => ({
+                        id: type,
+                        type
+                    }))
+                )
             }
         } catch (error) {
             if (axios.isAxiosError(error)) {
@@ -126,13 +123,14 @@ const page = () => {
     useEffect(() => {
         const matchesStation = (station: Station) => selectedStation === "" || station.id === Number(selectedStation);
         const matchesWorker = (worker: Worker) => selectedWorker === "" || worker.id === Number(selectedWorker);
-        const matchesVehicle = (vehicle: Vehicle) => selectedVehicle === "" || vehicle.id === Number(selectedVehicle);
+        const matchesVehicle = (vehicle: Collection["vehicle"]) => selectedVehicle === "" || 
+            vehicle.type === selectedVehicle;
 
         const newFilteredCollection = collections.filter((collection) => 
             matchesStation(collection.station) && 
             matchesWorker(collection.worker) &&
             matchesVehicle(collection.vehicle)
-        )
+        );
 
         setFilteredCollection(newFilteredCollection);
     }, [collections, selectedStation, selectedWorker, selectedVehicle]);
@@ -172,12 +170,13 @@ const page = () => {
                     </select>
 
                     <select
+                        value={selectedVehicle}
                         onChange={(e) => setSelectedVehicle(e.target.value)}
                         className="border border-gray-400 rounded p-1 md:p-2 text-xs md:text-sm"
                     >
                         <option value="">All Types</option>
                         {vehicles.map((vehicle) => (
-                            <option key={vehicle.id} value={vehicle.id}>{vehicle.type}</option>
+                            <option key={vehicle.id} value={vehicle.type}>{vehicle.type}</option>
                         ))}
                     </select>
                 </div>

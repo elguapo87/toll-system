@@ -52,7 +52,7 @@ const Navbar = () => {
                             text-zinc-50 hover:text-zinc-200 text-sm font-medium pl-5 pr-2 py-2
                             rounded-full cursor-pointer border-0 max-md:text-xs"
                     >
-                        Login/register
+                        Owner Login
                         <span className="size-5 md:size-7 rounded-full bg-white flex items-center justify-center">
                             <svg
                                 width="12" height="10"
